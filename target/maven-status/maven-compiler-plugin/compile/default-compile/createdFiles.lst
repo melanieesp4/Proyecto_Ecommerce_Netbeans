@@ -1,0 +1,13 @@
+ecommerce_proyect\Connection\bd\PruebaConexion.class
+ecommerce_proyect\Model\ImagenProductoModel.class
+ecommerce_proyect\Model\UsuarioModel.class
+ecommerce_proyect\DAO\ProductosDao.class
+ecommerce_proyect\Model\CategoriaModel.class
+ecommerce_proyect\HomeController.class
+ecommerce_proyect\Model\ProductosModel.class
+ecommerce_proyect\Model\CarritoModel.class
+ecommerce_proyect\DAO\CarritoDao.class
+ecommerce_proyect\Model\TokenModel.class
+com\mycompany\ecommerce_proyect\JakartaRestConfiguration.class
+ecommerce_proyect\Connection\bd\Connectionbd.class
+com\mycompany\ecommerce_proyect\resources\JakartaEE10Resource.class

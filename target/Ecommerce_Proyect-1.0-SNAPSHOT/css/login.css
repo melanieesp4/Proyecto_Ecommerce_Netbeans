@@ -1,0 +1,374 @@
+
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap");
+/* Estilos generales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "League Spartan", sans-serif;
+}
+
+body {
+    width: 100%;
+}
+
+
+        /*letras*/
+a{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+h1 {
+  font-size: 50px;
+  line-height: 64px;
+  color: #222;
+}
+
+h2 {
+  font-size: 46px;
+  line-height: 54px;
+  color: #222;
+}
+h4 {
+  font-size: 20px;
+  color: #fff;
+}
+h6 {
+  font-weight: 700;
+  font-size: 12px;
+}
+p {
+  font-size: 16px;
+  color: #465b52;
+  margin: 15px 0 20px 0;
+}
+
+     /* header styles */
+
+header {
+    background-color: #c9d6ff;
+    background: linear-gradient(to right, #7a588a, #69588a);
+    color: #fff;
+    padding: 10px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo img {
+  height: 40px;
+  margin-left: 30px;
+}
+
+.search-bar input {
+  width: 300px;
+  padding: 8px;
+  font-size: 14px;
+  border: none;
+  border-radius: 3px;
+}
+
+.search-bar button {
+  padding: 8px 10px;
+  background-color: #fcd303;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+section.destacados {
+    padding: 20px;
+}
+
+.categories ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categories li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.categories li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+.categories li a:hover {
+  background-color: #ff9900;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #69588a;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  font-size: 15px;
+  color: #fff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #32a852;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.cart {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cart img {
+  height: 30px;
+  margin-right: -0.3px;
+}
+
+.cart-count {
+  background-color: #ff9900;
+  color: #fff;
+  padding: 2px 5px;
+  border-radius: 50%;
+  margin-right: 100px;
+}
+
+/* Banner*/
+
+.banner {
+  background-image: url(../img/compra-banner.jpg);
+  width: 100%;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 80px;
+}
+
+.compra {
+  padding-bottom: 15px;
+  font-size: 40px;
+  color: #fff;
+}
+.banner h2{
+  font-size: 60px;
+
+}
+.banner h1 {
+  color: #222;
+  font-size: 50px;
+
+}
+.banner button {
+  background: transparent;
+  background-image: url(../img/boton.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 200px;
+  height: 60px;
+  border: 0;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 700;
+  color: #a80e0c;
+  padding: 14px 65px 14px 65px;
+}
+
+
+
+
+
+
+
+   /* imagenes*/
+.productos-destacados .producto {
+    width: 280px;
+    border: 1px solid #ebebeb;
+    padding: 13px;
+    margin-bottom: 30px;
+    border-radius: 25px;
+    position: relative;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+    transition: box-shadow 0.2s;
+   }
+   .producto img {
+      width: 100%;
+      border-radius: 25px; 
+      padding: 10px;
+   }
+   
+.productos-destacados .sections {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 60px;
+}
+.productos-destacados h1 {
+  font-size: 65px;
+  font-family: serif;
+  font-style: oblique;
+  line-height: 64px;
+  color: #222;
+  text-align: center;
+  padding: 20px;
+  
+}
+.productos-destacados p{
+    font-size: 18px;
+    padding: 5px;
+    text-align: center;
+}
+.sections .producto h4 {
+  font-size: 18px;
+  color: rgb(41, 41, 41);
+  padding: 6px 0;
+}
+.sección-de-producto .carrito-de-productos .stars {
+  color: #e6ae2c;
+  padding: 6px 0;
+}
+.sections .producto .price {
+  color: #088178;
+  padding: 4px 0;
+}
+.producto .price h4 {
+    color: #a80e0c;
+}
+.sections .producto .stars {
+  color: #e6ae2c;
+  padding: 6px 0;
+}
+.productos-destacados .producto:hover {
+  box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
+}
+
+.productos-destacados .producto .buy-icon {
+  color: #088178;
+  background-color: #c7e9e75e;
+  padding: 15px;
+  border-radius: 50px;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+/*productos */
+
+
+/* Boletininformativo section styles */
+
+#Boletininformativo {
+  background-color: #c9d6ff;
+  background: linear-gradient(to right, #7a588a, #69588a);
+  height: 160px;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 75px;
+}
+#Boletininformativo .Boletininformativo-text h3 {
+  color: white;
+  font-size: 30px;
+  padding: 0 0 15px 0;
+}
+#Boletininformativo .Boletininformativo-text h5 {
+  color: #222;
+  font-size: 17px;
+}
+#Boletininformativo .Boletininformativo-text h5 span {
+  color: rgb(216, 182, 29);
+}
+#Boletininformativo .form input {
+  padding: 20px;
+  width: 350px;
+  height: 56px;
+  background-color: #d1d0d0;
+  border-radius: 6px 0 0 6px;
+  font-size: 18px;
+
+  border: none;
+  outline: none;
+  margin-right: -4px;
+  margin-top: 1px;
+}
+#Boletininformativo .form button {
+  margin-left: 0;
+  padding: 20px;
+  border: none;
+  width: 120px;
+    background-color: #fcd303;
+  color: white;
+  font-size: 18px;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+}  
+   
+   /*footer*/
+
+/* Estilo del footer */
+footer {
+    align-items: flex-start;
+    background-color: #ccc;
+    color: #fff;
+    padding: 75px;
+}
+
+#footer{
+    display: flex;
+    justify-content: space-around;
+}
+
+#footer p, #footer a {
+    color: rgb(109,109,109);
+    text-decoration: none;
+    font-size: 16px;
+}
+
+#footer a:hover{
+    color: #088178;
+}
+
+#footer .acerca-de a{
+    display: block;
+    padding: 8px 0;
+}
+
+#footer .mi-cuenta a{
+    display: block;
+    padding: 8px 0;
+}
+
+#footer .descargar img{
+    border: 1px solid #08817969;
+    border-radius: 7px;
+}
+.contact, .acerca-de, .mi-cuenta, .instalar {
+    flex: 1;
+    text-align: center;
+}
+#imgproducto{
+    height: 200px;
+    width: 200px;
+}
