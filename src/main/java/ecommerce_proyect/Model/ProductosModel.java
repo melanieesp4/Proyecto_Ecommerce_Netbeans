@@ -13,12 +13,14 @@ public class ProductosModel {
     double prodPrecio;
     int prodCantidad;
     int prodCategoria;
+    private double prodDescuento;
+    private boolean esOferta;
     
    public ProductosModel(){
         
     } 
 
-    public ProductosModel(int prodId, String prodNombre, String prodImagen, String prodDescripcion, double prodPrecio, int prodCantidad, int prodCategoria) {
+    public ProductosModel(int prodId, String prodNombre, String prodImagen, String prodDescripcion, double prodPrecio, int prodCantidad, int prodCategoria, double prodDescuento, boolean esOferta) {
         this.prodId = prodId;
         this.prodNombre = prodNombre;
         this.prodImagen = prodImagen;
@@ -26,6 +28,8 @@ public class ProductosModel {
         this.prodPrecio = prodPrecio;
         this.prodCantidad = prodCantidad;
         this.prodCategoria = prodCategoria;
+        this.prodDescuento = prodDescuento;
+        this.esOferta = esOferta;
     }
 
     public int getProdId() {
@@ -83,6 +87,21 @@ public class ProductosModel {
     public void setProdCategoria(int prodCategoria) {
         this.prodCategoria = prodCategoria;
     }
-    
-   
+
+    public double getProdDescuento() {
+        return prodDescuento;
+    }
+
+    public void setProdDescuento(double prodDescuento) {
+        this.prodDescuento = prodDescuento;
+    }
+
+    public boolean isEsOferta() {
+        return esOferta;
+    }
+
+    public void setEsOferta(boolean esOferta) {
+        this.esOferta = esOferta;
+    }
+
 }

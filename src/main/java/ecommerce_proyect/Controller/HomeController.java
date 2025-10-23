@@ -1,5 +1,5 @@
 
-package ecommerce_proyect;
+package ecommerce_proyect.Controller;
 
 import ecommerce_proyect.DAO.ProductosDao;
 import ecommerce_proyect.DAO.CarritoDao;

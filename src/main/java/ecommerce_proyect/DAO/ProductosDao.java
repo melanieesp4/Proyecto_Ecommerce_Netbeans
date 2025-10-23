@@ -145,6 +145,32 @@ public class ProductosDao {
         return productos;
     }
 
-     
+        public List<ProductosModel> listarOfertas() {
+        List<ProductosModel> lista = new ArrayList<>();
+        String sql = "SELECT * FROM productos WHERE es_oferta = TRUE ORDER BY prodDescuento DESC";
+
+        try (
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                ProductosModel prod = new ProductosModel();
+                prod.setProdId(rs.getInt("prod_id"));
+                prod.setProdNombre(rs.getString("prod_nombre"));
+                prod.setProdDescripcion(rs.getString("prod_descripcion"));
+                prod.setProdPrecio(rs.getDouble("prod_precio"));
+                prod.setProdImagen(rs.getString("prod_imagen"));
+                prod.setProdDescuento(rs.getDouble("prod_descuento"));
+                prod.setEsOferta(rs.getBoolean("es_oferta"));
+                lista.add(prod);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al listar ofertas: " + e.getMessage());
+        }
+        return lista;
+    }
+
+
     
 }
