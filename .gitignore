@@ -1,0 +1,37 @@
+
+# ==============================
+# IGNORAR ARCHIVOS GENERADOS POR MAVEN
+# ==============================
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# ==============================
+# CONFIGURACIONES DE IDE (NetBeans, VSCode, IntelliJ)
+# ==============================
+.nb-gradle/
+nbproject/private/
+build/
+dist/
+.idea/
+.vscode/
+*.iml
+
+# ==============================
+# ARCHIVOS TEMPORALES DEL SISTEMA
+# ==============================
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+
+# ==============================
+# VARIABLES DE ENTORNO Y CONFIGURACIÓN LOCAL
+# ==============================
+.env
+.env.local
+*.properties.local
+*.config
