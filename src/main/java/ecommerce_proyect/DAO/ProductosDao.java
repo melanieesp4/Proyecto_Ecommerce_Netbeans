@@ -1,4 +1,3 @@
-
 package ecommerce_proyect.DAO;
 
 import ecommerce_proyect.Connection.bd.Connectionbd;
@@ -15,16 +14,16 @@ import java.util.List;
  * @author User
  */
 public class ProductosDao {
+
     Connectionbd bdc = Connectionbd.getInstancia();
     Connection con = bdc.obtenerConexion();
-    
+
     //Listar todos los productos
     public List<ProductosModel> listar() {
         List<ProductosModel> productos = new ArrayList<>();
         String sql = "SELECT prodId, prodNombre, prodImagen, prodDescripcion, prodPrecio, prodCantidad, prodCategoria FROM productos";
-        try (PreparedStatement ps = con.prepareStatement(sql); 
-                ResultSet rs = ps.executeQuery()) {
-            
+        try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
                 ProductosModel p = new ProductosModel();
                 p.setProdId(rs.getInt("prodId"));
@@ -37,14 +36,14 @@ public class ProductosDao {
                 productos.add(p);
             }
         } catch (SQLException e) {
-           throw new RuntimeException("Error al listar productos", e);
+            throw new RuntimeException("Error al listar productos", e);
 
         }
         return productos;
     }
-    
+
     //Obtener productos por ID    
-     public ProductosModel obtenerProductoPorId(int productoId) {
+    public ProductosModel obtenerProductoPorId(int productoId) {
         ProductosModel producto = null;
         String sql = "SELECT prodId, prodNombre, prodImagen, prodDescripcion, prodPrecio, prodCantidad, prodCategoria FROM productos WHERE prodId = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -62,40 +61,38 @@ public class ProductosDao {
                 }
             }
         } catch (SQLException e) {
-             throw new RuntimeException("Problemas al cargar el producto con id " + productoId, e);
- 
+            throw new RuntimeException("Problemas al cargar el producto con id " + productoId, e);
+
         }
         return producto;
     }
-     
-     
-     //Listar productos por categorias
-     public List<ProductosModel> listarPorCategoria(int catId) {
+
+    //Listar productos por categorias
+    public List<ProductosModel> listarPorCategoria(int catId) {
         List<ProductosModel> productos = new ArrayList<>();
         String sql = "SELECT prodId, prodNombre, prodImagen, prodDescripcion, prodPrecio, prodCantidad, prodCategoria FROM productos WHERE prodCategoria = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1,catId); 
-                try(ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                ProductosModel p = new ProductosModel();
-                p.setProdId(rs.getInt(1));
-                p.setProdNombre(rs.getString(2));
-                p.setProdImagen(rs.getString(3));
-                p.setProdDescripcion(rs.getString(4));
-                p.setProdPrecio(rs.getDouble(5));
-                productos.add(p);
+            ps.setInt(1, catId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ProductosModel p = new ProductosModel();
+                    p.setProdId(rs.getInt(1));
+                    p.setProdNombre(rs.getString(2));
+                    p.setProdImagen(rs.getString(3));
+                    p.setProdDescripcion(rs.getString(4));
+                    p.setProdPrecio(rs.getDouble(5));
+                    productos.add(p);
                 }
             }
         } catch (SQLException e) {
-           e.printStackTrace(); // Manejo de excepciones
+            e.printStackTrace(); // Manejo de excepciones
         }
         return productos;
     }
-     
-     
-     // Listar productos por búsqueda (nombre)
-      public List<ProductosModel> listarPorBusqueda(String busqueda) {
-         List<ProductosModel> productos = new ArrayList<>();
+
+    // Listar productos por búsqueda (nombre)
+    public List<ProductosModel> listarPorBusqueda(String busqueda) {
+        List<ProductosModel> productos = new ArrayList<>();
         String sql = "SELECT prodId, prodNombre, prodImagen, prodDescripcion, prodPrecio, prodCantidad, prodCategoria FROM productos WHERE prodNombre ILIKE ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, "%" + busqueda + "%");
@@ -113,17 +110,16 @@ public class ProductosDao {
                 }
             }
         } catch (SQLException e) {
-          throw new RuntimeException("Error al buscar el producto " + busqueda, e);
+            throw new RuntimeException("Error al buscar el producto " + busqueda, e);
         }
         return productos;
     }
-      
-      
-      // Listar productos destacados
+
+    // Listar productos destacados
     public List<ProductosModel> listarDestacados(int limite) {
         List<ProductosModel> productos = new ArrayList<>();
-        String sql = "SELECT prodId, prodNombre, prodImagen, prodDescripcion, prodPrecio, prodCantidad, prodCategoria " +
-                     "FROM productos WHERE prodDestacado = TRUE ORDER BY prodId DESC LIMIT ?";
+        String sql = "SELECT prodId, prodNombre, prodImagen, prodDescripcion, prodPrecio, prodCantidad, prodCategoria "
+                + "FROM productos WHERE prodDestacado = TRUE ORDER BY prodId DESC LIMIT ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, limite);
             try (ResultSet rs = ps.executeQuery()) {
@@ -145,22 +141,22 @@ public class ProductosDao {
         return productos;
     }
 
-        public List<ProductosModel> listarOfertas() {
+    // Mostrar productos en ofertas
+    public List<ProductosModel> listarOfertas() {
         List<ProductosModel> lista = new ArrayList<>();
         String sql = "SELECT * FROM productos WHERE es_oferta = TRUE ORDER BY prodDescuento DESC";
 
         try (
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+                PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 ProductosModel prod = new ProductosModel();
-                prod.setProdId(rs.getInt("prod_id"));
-                prod.setProdNombre(rs.getString("prod_nombre"));
-                prod.setProdDescripcion(rs.getString("prod_descripcion"));
-                prod.setProdPrecio(rs.getDouble("prod_precio"));
-                prod.setProdImagen(rs.getString("prod_imagen"));
-                prod.setProdDescuento(rs.getDouble("prod_descuento"));
+                prod.setProdId(rs.getInt("prodId"));
+                prod.setProdNombre(rs.getString("prodNombre"));
+                prod.setProdImagen(rs.getString("prodImagen"));
+                prod.setProdDescripcion(rs.getString("prodDescripcion"));
+                prod.setProdPrecio(rs.getDouble("prodPrecio"));
+                prod.setProdDescuento(rs.getDouble("prodDescuento"));
                 prod.setEsOferta(rs.getBoolean("es_oferta"));
                 lista.add(prod);
             }
@@ -168,9 +164,40 @@ public class ProductosDao {
         } catch (SQLException e) {
             System.out.println("Error al listar ofertas: " + e.getMessage());
         }
+        System.out.println("Ofertas encontradas: " + lista.size());
+
         return lista;
     }
 
+    // Obtener productos que pueden interesar al usuario  
+    public List<ProductosModel> obtenerProductosInteresantes(int categoriaId, int productoIdActual) {
+    List<ProductosModel> lista = new ArrayList<>();
+    String sql = "SELECT * FROM productos WHERE prodcategoria = ? ORDER BY RANDOM() LIMIT 6";
 
-    
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, categoriaId);
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                if(rs.getInt("prodid") != productoIdActual){ // opcional, para excluir el producto actual
+                    ProductosModel prod = new ProductosModel();
+                    prod.setProdId(rs.getInt("prodid"));
+                    prod.setProdNombre(rs.getString("prodnombre"));
+                    prod.setProdImagen(rs.getString("prodimagen"));
+                    prod.setProdDescripcion(rs.getString("proddescripcion"));
+                    prod.setProdPrecio(rs.getDouble("prodprecio"));
+                    prod.setProdDescuento(rs.getDouble("proddescuento"));
+                    prod.setProdCategoria(rs.getInt("prodcategoria"));
+                    lista.add(prod);
+                }
+            }
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error al obtener productos interesantes: " + e.getMessage());
+    }
+
+    return lista;
+}
+
 }
