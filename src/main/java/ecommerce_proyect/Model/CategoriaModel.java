@@ -3,7 +3,7 @@ package ecommerce_proyect.Model;
 
 /**
  *
- * @author User
+ * @author MelanieEsp
  */
 public class CategoriaModel {
     private int catId;
