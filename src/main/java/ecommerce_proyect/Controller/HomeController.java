@@ -1,4 +1,3 @@
-
 package ecommerce_proyect.Controller;
 
 import ecommerce_proyect.DAO.ProductosDao;
@@ -14,10 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
-/**
- *
- * @author User
- */
 @WebServlet(name = "HomeController", urlPatterns = {"/HomeController"})
 public class HomeController extends HttpServlet {
 
@@ -30,7 +25,7 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        
+
         /* TODO output your page here. You may use following sample code. */
         ProductosDao productoDAO = new ProductosDao();
         CarritoDao carritoDAO = new CarritoDao();
@@ -43,12 +38,12 @@ public class HomeController extends HttpServlet {
             List<ProductosModel> resultadosBusqueda = productoDAO.listarPorBusqueda(busqueda);
             request.setAttribute("resultadosBusqueda", resultadosBusqueda);
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Views/Public/index.jsp");
             dispatcher.forward(request, response);
-            return; 
-            }
-         
-         // ---------------------------
+            return;
+        }
+
+        // ---------------------------
         // Manejo de agregar producto al carrito
         // ---------------------------
         HttpSession session = request.getSession(false);
@@ -74,31 +69,30 @@ public class HomeController extends HttpServlet {
                 }
 
                 // Redirigir a la página principal con mensaje
-                RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Views/Public/index.jsp");
                 dispatcher.forward(request, response);
                 return;
             }
         }
-        
+
         // ---------------------------
         // Mostrar productos destacados en el home
         // ---------------------------
         try {
-            List<ProductosModel> productosDestacados = productoDAO.listarDestacados(6); 
+            List<ProductosModel> productosDestacados = productoDAO.listarDestacados(6);
             request.setAttribute("productosDestacados", productosDestacados);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("mensajeError", "Error al cargar productos destacados.");
         }
-        
-         // ---------------------------
+
+        // ---------------------------
         // Si no hay búsqueda ni productoId, solo mostrar la página principal
         // ---------------------------
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Views/Public/index.jsp");
         dispatcher.forward(request, response);
 
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -106,7 +100,6 @@ public class HomeController extends HttpServlet {
         processRequest(request, response);
     }
 
-   
     @Override
     public String getServletInfo() {
         return "Short description";

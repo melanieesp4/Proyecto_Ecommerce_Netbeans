@@ -67,26 +67,34 @@ public class ProductosDao {
         return producto;
     }
 
-    //Listar productos por categorias
-    public List<ProductosModel> listarPorCategoria(int catId) {
+    // Listar productos por categorías por ID
+    public List<ProductosModel> listarPorCategoria(int categoriaId) {
         List<ProductosModel> productos = new ArrayList<>();
-        String sql = "SELECT prodId, prodNombre, prodImagen, prodDescripcion, prodPrecio, prodCantidad, prodCategoria FROM productos WHERE prodCategoria = ?";
+        String sql = "SELECT prodId, prodNombre, prodImagen, prodDescripcion, prodPrecio, prodCantidad, prodCategoria "
+                + "FROM productos WHERE prodCategoria = ?";
+
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, catId);
+            ps.setInt(1, categoriaId);
+
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     ProductosModel p = new ProductosModel();
-                    p.setProdId(rs.getInt(1));
-                    p.setProdNombre(rs.getString(2));
-                    p.setProdImagen(rs.getString(3));
-                    p.setProdDescripcion(rs.getString(4));
-                    p.setProdPrecio(rs.getDouble(5));
+
+                    p.setProdId(rs.getInt("prodId"));
+                    p.setProdNombre(rs.getString("prodNombre"));
+                    p.setProdImagen(rs.getString("prodImagen"));
+                    p.setProdDescripcion(rs.getString("prodDescripcion"));
+                    p.setProdPrecio(rs.getDouble("prodPrecio"));
+                    p.setProdCantidad(rs.getInt("prodCantidad"));
+                    p.setProdCategoria(rs.getInt("prodCategoria"));
+
                     productos.add(p);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Manejo de excepciones
+            e.printStackTrace();
         }
+
         return productos;
     }
 
@@ -171,33 +179,33 @@ public class ProductosDao {
 
     // Obtener productos que pueden interesar al usuario  
     public List<ProductosModel> obtenerProductosInteresantes(int categoriaId, int productoIdActual) {
-    List<ProductosModel> lista = new ArrayList<>();
-    String sql = "SELECT * FROM productos WHERE prodcategoria = ? ORDER BY RANDOM() LIMIT 6";
+        List<ProductosModel> lista = new ArrayList<>();
+        String sql = "SELECT * FROM productos WHERE prodcategoria = ? ORDER BY RANDOM() LIMIT 6";
 
-    try (PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setInt(1, categoriaId);
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, categoriaId);
 
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                if(rs.getInt("prodid") != productoIdActual){ // opcional, para excluir el producto actual
-                    ProductosModel prod = new ProductosModel();
-                    prod.setProdId(rs.getInt("prodid"));
-                    prod.setProdNombre(rs.getString("prodnombre"));
-                    prod.setProdImagen(rs.getString("prodimagen"));
-                    prod.setProdDescripcion(rs.getString("proddescripcion"));
-                    prod.setProdPrecio(rs.getDouble("prodprecio"));
-                    prod.setProdDescuento(rs.getDouble("proddescuento"));
-                    prod.setProdCategoria(rs.getInt("prodcategoria"));
-                    lista.add(prod);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    if (rs.getInt("prodid") != productoIdActual) { // opcional, para excluir el producto actual
+                        ProductosModel prod = new ProductosModel();
+                        prod.setProdId(rs.getInt("prodid"));
+                        prod.setProdNombre(rs.getString("prodnombre"));
+                        prod.setProdImagen(rs.getString("prodimagen"));
+                        prod.setProdDescripcion(rs.getString("proddescripcion"));
+                        prod.setProdPrecio(rs.getDouble("prodprecio"));
+                        prod.setProdDescuento(rs.getDouble("proddescuento"));
+                        prod.setProdCategoria(rs.getInt("prodcategoria"));
+                        lista.add(prod);
+                    }
                 }
             }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener productos interesantes: " + e.getMessage());
         }
 
-    } catch (SQLException e) {
-        System.out.println("Error al obtener productos interesantes: " + e.getMessage());
+        return lista;
     }
-
-    return lista;
-}
 
 }

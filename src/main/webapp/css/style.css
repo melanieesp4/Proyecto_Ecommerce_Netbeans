@@ -329,11 +329,12 @@ section .destacados {
 .productos-destacados .producto {
     width: 100%;
     max-width: 270px;
-    height: 480px;
-    padding: 20px;
+    height: auto;
+    gap: 6px;
+    display: flex;
+    padding: 15px;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
     text-align: left;
@@ -348,23 +349,28 @@ section .destacados {
     width: 100%;
     height: 180px;
     border-radius: 8px;
-    padding: 10px;
+    padding: 5px;
     object-fit: contain;
     display: block;
     cursor: pointer;
 }
 
 /*DETALLES DE CADA PRODUCTO */
-/* // Título del producto *//* // Título del producto */
+/* // Título del producto */
 .producto .titulo {
+    width: 100%;
     font-size: 0.85rem;
-    margin: 0.1rem;
+    margin: 2px 0;
     color: var(--color-secundario);
     font-weight: 400 ;
-    width: 100%;
     transition: color 0.3s, text-decoration 0.3s;
     cursor: pointer;
     padding-left: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;   /* Máximo de líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
@@ -374,18 +380,34 @@ section .destacados {
     font-size: 1.1rem;
     line-height: 1rem;
     text-align: left;
-    padding-bottom: 10px;
-    width: 100%;
-    margin-left: 12px;
+    margin: 2px 0 0 10px;
 }
 /* // Precio del producto */
 .producto .price {
-    font-size: 1.05rem;
-    font-weight: 500;
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
     color: var(--color-secundario);
-    text-align: left;
-    width: 100%;
-    padding: 0 10px;
+    font-weight: 600;
+    margin-left: 10px;
+    margin-top: 4px;
+}
+.price .currency {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    margin-top: -0.5px;
+}
+
+.price .entero {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.price .decimal {
+    font-size: 0.80rem;
+    line-height: 1;
+    align-self: flex-start;
+    margin-top: -0.5px;
 }
 
 /* // Texto o descripción dentro de la sección */
@@ -393,7 +415,7 @@ section .destacados {
     font-size: 0.75rem;
     color: var(--color-texto);
     font-weight: 400;
-    margin: 0.4rem 0;
+    margin: 2px 0;
     padding-left: 10px;
 }
 
@@ -407,9 +429,8 @@ section .destacados {
     background-color: var(--color-resaltador);
     color: var(--color-texto);
     transition: 0.3s;
-    padding: 8px 14px;
-    margin-top: 0.3rem;
-    margin-left: 10px;
+    padding: 10px 14px;
+    margin:10px;
     align-self: flex-start;
 }
 
@@ -658,12 +679,21 @@ section .destacados {
 
 /* TÍTULO */
 .oferta h3 {
-    font-size: 16px;
     font-size: 0.85rem;
     margin: 0.1rem;
     color: var(--color-secundario);
-    font-weight: 400 ;
+    font-weight: 400;
+    cursor: pointer;
     margin: 8px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.2s ease;
+}
+.oferta h3:hover {
+    color: var(--color-primario);
+    text-decoration: underline;
 }
 
 /* ESTRELLAS Y OPINIONES */
@@ -687,15 +717,36 @@ section .destacados {
 
 .precio-anterior {
     text-decoration: line-through;
-    color: #888;
-    font-size: 14px;
+    color: #565959;
+    font-size: 0.80rem;
+    margin-left: 4px;
 }
 
 .precio-descuento {
-    font-size: 1.2rem;
-    font-weight: 500;
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
     color: var(--color-secundario);
-    padding: 0 5px;
+    font-weight: 500;
+    text-align: left;
+}
+
+.precio-descuento .currency {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    margin-top: -0.5px;
+}
+
+.precio-descuento .entero {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.precio-descuento .decimal {
+    font-size: 0.80rem;
+    line-height: 1;
+    align-self: flex-start;
+    margin-top: -0.5px;
 }
 
 /* DESCUENTO */
@@ -705,30 +756,28 @@ section .destacados {
     color: var(--color-fondo);
     padding: 4px 8px;
     border-radius: 5px;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: bold;
-    margin-bottom: 10px;
 }
 
 /* BOTÓN CARRITO */
 .btn-carrito {
     width: 100%;
-    font-weight: 600;
+    font-weight: 500;
     background-color: var(--color-resaltador);
     color: var(--color-texto);
-    border: none;
-    border-radius: 25px;
-    padding: 10px 0;
+    border-radius: 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 0.95rem;
-    padding: 8px 14px;
-    margin-top: 0.3rem;
-    margin-left: 10px;
+    padding: 12px ;
+    border: none;
+    font-size: 0.85rem;
+    transition: 0.3s;
+    margin: 10px 0px 10px;
+    align-self: flex-start;
 }
 
 .btn-carrito:hover {
-    background-color: #f7ca00;
+    background-color: rgba(238, 200, 79, 0.5);
 }
 
 /* HOVER TARJETA */

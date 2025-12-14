@@ -1,8 +1,11 @@
+<%@page import="ecommerce_proyect.DAO.ImagenProductoDao"%>
+<%@page import="ecommerce_proyect.DAO.ProductosDao"%>
 <%@ page import="java.util.List" %>
 <%@ page import="ecommerce_proyect.Model.ImagenProductoModel" %>
-<%@ page import="ecommerce_proyect.DAO.ImagenProductoDao" %>
 <%@ page import="ecommerce_proyect.Model.ProductosModel" %>
-<%@ page import="ecommerce_proyect.DAO.ProductosDao" %>
+
+
+<%@ include file="../Components/header.jsp" %>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -15,41 +18,43 @@
     </head>
 
     <body>
-        <%@ include file="PageComponents/header.jsp" %>
+        <%
+            ProductosModel producto = (ProductosModel) request.getAttribute("producto");
+            List<ImagenProductoModel> productosImg
+                    = (List<ImagenProductoModel>) request.getAttribute("imagenes");
+            List<ProductosModel> similares
+                    = (List<ProductosModel>) request.getAttribute("similares");
+        %>
 
         <div class="product-detail-container">
             <div class="gallery-section">
+
                 <div class="thumbnail-list">
-                    <%
-                        int productId = Integer.parseInt(request.getParameter("item"));
-                        ProductosDao productoDAO = new ProductosDao();
-                        ImagenProductoDao imgProDAO = new ImagenProductoDao();
-                        List<ImagenProductoModel> productosImg = imgProDAO.obtenerImagenesPorProducto(productId);
-                        for (ImagenProductoModel img : productosImg) {
-                    %>
-                    <img onclick="document.getElementById('main-image').style.backgroundImage = 'url(<%= img.getImgUrl()%>)'" 
-                         src="<%= img.getImgUrl()%>" class="thumbnail">
+                    <% for (ImagenProductoModel img : productosImg) {%>
+                    <img
+                        onclick="document.getElementById('main-image').style.backgroundImage =
+                                    'url(<%= img.getImgUrl()%>)'"
+                        src="<%= img.getImgUrl()%>"
+                        class="thumbnail">
                     <% }%>
                 </div>
 
                 <div id="main-image" class="main-image"
-                     style="background-image: url(<%= productoDAO.obtenerProductoPorId(productId).getProdImagen()%>);">
+                     style="background-image: url(<%= producto.getProdImagen()%>);">
                 </div>
             </div>
 
-            <%
-                ProductosModel producto = productoDAO.obtenerProductoPorId(productId);
-            %>
             <div class="product-info">
                 <h1><%= producto.getProdNombre()%></h1>
                 <p class="description"><%= producto.getProdDescripcion()%></p>
 
                 <div class="price-section">
-                    <h2><%= "$" + producto.getProdPrecio()%></h2>
+                    <h2>$<%= producto.getProdPrecio()%></h2>
                     <p class="shipping">Envío gratis disponible</p>
                 </div>
 
-                <button class="add-to-cart" onclick="agregarAlCarrito(<%= productId%>)">
+                <button class="add-to-cart"
+                        onclick="agregarAlCarrito(<%= producto.getProdId()%>)">
                     <i class="fa-solid fa-cart-plus"></i> Añadir al carrito
                 </button>
 
@@ -63,13 +68,11 @@
 
         <!--Artiulos que te podrian interesar  -->
         <section class="related-products">
-            <h2>Artículos que te podrian interesar</h2>
+            <h2>Artículos que te podrían interesar</h2>
             <div class="slider">
-                <%
-                    List<ProductosModel> similares = productoDAO.obtenerProductosInteresantes(producto.getProdCategoria(), producto.getProdId());
-                    for (ProductosModel sim : similares) {
-                %>
-                <div class="similar-item" onclick="verDetalle(<%= sim.getProdId()%>)">
+                <% for (ProductosModel sim : similares) {%>
+                <div class="similar-item"
+                     onclick="verDetalle(<%= sim.getProdId()%>)">
                     <img src="<%= sim.getProdImagen()%>" alt="<%= sim.getProdNombre()%>">
                     <h3><%= sim.getProdNombre()%></h3>
                     <p class="price">$<%= sim.getProdPrecio()%></p>
@@ -95,7 +98,7 @@
             </div>
         </section>
 
-        <%@ include file="PageComponents/footer.jsp" %>
+        <%@ include file="../Components/footer.jsp" %>
 
         <script>
             function agregarAlCarrito(idProducto) {
@@ -110,7 +113,7 @@
             }
 
             function verDetalle(id) {
-                window.location.href = "detalle.jsp?item=" + id;
+                window.location.href = "DetalleProducto?id=" + id;
             }
         </script>
     </body>
