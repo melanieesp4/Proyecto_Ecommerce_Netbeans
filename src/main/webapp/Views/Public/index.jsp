@@ -46,58 +46,90 @@
         </div>
     </section>
 
-
-
-    <!-- SECCION DE PRODUCTOS DESTACADOS --> 
+    <!-- SECCION DE PRODUCTOS DESTACADOS -->
     <section class="productos-destacados">
         <%
             String txtB;
             ProductosDao productoDAO = new ProductosDao();
             List<ProductosModel> productos;
-            if (request.getAttribute("resultadosBusqueda") == null || request.getParameter("busqueda") == null || request.getParameter("busqueda").isEmpty()) {
+
+            if (request.getAttribute("resultadosBusqueda") == null
+                    || request.getParameter("busqueda") == null
+                    || request.getParameter("busqueda").isEmpty()) {
+
                 txtB = "Productos destacados";
                 productos = productoDAO.listarDestacados(6);
+
             } else {
                 txtB = "Resultados de búsqueda para: " + request.getParameter("busqueda");
                 productos = (List<ProductosModel>) request.getAttribute("resultadosBusqueda");
             }
+
+
         %>
 
-        <h1><%= txtB%></h1>
+        <div class="destacados-header">
+            <h1><%= txtB%></h1>
+
+            <span class="page-indicator">
+                Página <span id="pagina-actual">1</span>
+                de <span id="total-paginas">1</span>
+            </span>
+        </div>
 
         <div class="carousel-container">
+
             <button class="nav-btn left" onclick="moveSlide(-1)">&#10094;</button>
+            <div class="carousel-viewport">
+                <div class="carousel-track" id="carousel-track">
 
-            <div class="carousel-track" id="carousel-track">
-                <% for (ProductosModel producto : productos) {%>
-                <div class="producto" onclick="verDetalle(<%= producto.getProdId()%>)">
-                    <img src="<%= producto.getProdImagen()%>" alt="<%= producto.getProdNombre()%>">
-                    <h3 class="titulo"><%= producto.getProdNombre()%></h3>
-                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <%
-                        java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
-                        String precioFormateadoDest = df.format(producto.getProdPrecio()); // ej: 15.99
-                        String enteroDest = precioFormateadoDest.substring(0, precioFormateadoDest.indexOf("."));
-                        String decimalDest = precioFormateadoDest.substring(precioFormateadoDest.indexOf(".") + 1);
-                    %>
+                    <% for (ProductosModel producto : productos) {%>
 
-                    <div class="price">
-                        <span class="currency">US$</span>
-                        <span class="entero"><%= enteroDest%></span>
-                        <span class="decimal"><%= decimalDest%></span>
+                    <div class="producto product-card"
+                         onclick="verDetalle(<%= producto.getProdId()%>)">
+
+                        <img src="<%= producto.getProdImagen()%>"
+                             alt="<%= producto.getProdNombre()%>">
+
+                        <h3 class="product-title"> <%= producto.getProdNombre()%></h3>
+
+                        <div class="product-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+
+                        <%
+                            java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
+                            String precioFormateado = df.format(producto.getProdPrecio());
+                            String entero = precioFormateado.substring(0, precioFormateado.indexOf("."));
+                            String decimal = precioFormateado.substring(precioFormateado.indexOf(".") + 1);
+                        %>
+
+                        <div class="product-price">
+                            <span class="price-currency">US$</span>
+                            <span class="price-integer"><%= entero%></span>
+                            <span class="price-decimal"><%= decimal%></span>
+                        </div>
+
+                        <p class="product-shipping">
+                            Envío gratis en pedidos superiores a $30 enviados por Blinker.
+                        </p>
+
+                        <button class="product-btn-cart"
+                                onclick="event.stopPropagation();
+                                        agregarAlCarrito(<%= producto.getProdId()%>, event);
+                                        actualizarContadorCarrito();">
+                            Agregar al carrito
+                        </button>
+
                     </div>
 
-                    <p class="envio">Envío gratis en pedidos superiores a $30 enviados por Blinker.</p>
-                    <button class="buy-btn" onclick="agregarAlCarrito(<%= producto.getProdId()%>, event); actualizarContadorCarrito();">
-                        Agregar al carrito
-                    </button>
+                    <% } %>
+
                 </div>
-                <% } %>
             </div>
 
             <button class="nav-btn right" onclick="moveSlide(1)">&#10095;</button>
         </div>
     </section>
+
 
     <!-- BENEFICIOS DE COMPRAR AQUI -->
     <section class="beneficios">
@@ -118,13 +150,29 @@
         </div>
     </section>
 
+    <%
+        int paginaActual = 1;
+        int productosPorPagina = 10;
 
-    <!-- OFERTAS DEL DÍA -->
-    <section class="ofertas">
+        if (request.getParameter("page") != null) {
+            paginaActual = Integer.parseInt(request.getParameter("page"));
+        }
+
+        int offset = (paginaActual - 1) * productosPorPagina;
+
+        List<ProductosModel> ofertas
+                = productoDAO.listarOfertasPaginadas(productosPorPagina, offset);
+
+        int totalProductos = productoDAO.contarOfertas();
+        int totalPaginas
+                = (int) Math.ceil((double) totalProductos / productosPorPagina);
+    %>
+
+    <!-- SECCIÓN OFERTAS DEL DÍA -->
+    <section class="big-sales">
         <h2>Ofertas del día</h2>
-        <div class="ofertas-grid">
+        <div class="big-sales-grid">
             <%
-                List<ProductosModel> ofertas = productoDAO.listarOfertas();
                 java.text.DecimalFormat df = new java.text.DecimalFormat("#.00");
 
                 for (ProductosModel prod : ofertas) {
@@ -133,32 +181,32 @@
                     double precioFinal = precioOriginal - (precioOriginal * descuento / 100);
             %>
 
-            <div class="oferta" onclick="verDetalle(<%= prod.getProdId()%>)">
-                <img src="<%= prod.getProdImagen()%>" alt="<%= prod.getProdNombre()%>">
-                <h3><%= prod.getProdNombre()%></h3>
+            <div class="big-sale product-card" onclick="verDetalle(<%= prod.getProdId()%>)">
+                <img class="product-image"  src="<%= prod.getProdImagen()%>" alt="<%= prod.getProdNombre()%>">
+                <h3 class="product-title"><%= prod.getProdNombre()%></h3>
 
-                <div class="estrellas">
+                <div class="product-rating">
                     ★★★★☆ <span class="opiniones">(15,549)</span>
                 </div>
-                <span class="descuento">-<%= (int) descuento%>% </span>
-                <div class="precios">
+
+                <span class="product-badge-discount">-<%= (int) descuento%>% </span>
+                <div class="product-price">
                     <%
                         String precioFormateado = df.format(precioFinal); // ej: "25.99"
                         String entero = precioFormateado.substring(0, precioFormateado.indexOf("."));
                         String decimal = precioFormateado.substring(precioFormateado.indexOf(".") + 1);
                     %>
 
-                    <span class="precio-descuento">
-                        <span class="currency">US$</span>
-                        <span class="entero"><%= entero%></span>
-                        <span class="decimal"><%= decimal%></span>
-                    </span>
 
+                    <span class="price-currency">US$</span>
+                    <span class="price-integer"><%= entero%></span>
+                    <span class="price-decimal"><%= decimal%></span>
 
-                    <span class="precio-anterior">US$<%= df.format(precioOriginal)%></span>
+                    <!-- Precio anterior -->
+                    <span class="price-old">US$<%= df.format(precioOriginal)%></span>
                 </div>
 
-                <button class="btn-carrito" onclick="event.stopPropagation(); agregarAlCarrito(<%= prod.getProdId()%>);">
+                <button class="product-btn-cart" onclick="event.stopPropagation(); agregarAlCarrito(<%= prod.getProdId()%>);">
                     Agregar al Carrito
                 </button>
             </div>
@@ -166,6 +214,29 @@
             <% }%>
         </div>
     </section>
+
+
+    <!-- PAGINACION DE LOS PRODUCTOS DE OFERTA  -->
+   <div class="pagination">
+
+    <% if (paginaActual > 1) { %>
+        <a class="page-btn"
+           href="?page=<%= paginaActual - 1 %>">«</a>
+    <% } %>
+
+    <% for (int i = 1; i <= totalPaginas; i++) { %>
+        <a class="page-btn <%= (i == paginaActual) ? "active" : "" %>"
+           href="?page=<%= i %>">
+            <%= i %>
+        </a>
+    <% } %>
+
+    <% if (paginaActual < totalPaginas) { %>
+        <a class="page-btn"
+           href="?page=<%= paginaActual + 1 %>">»</a>
+    <% } %>
+
+</div>
 
 
 

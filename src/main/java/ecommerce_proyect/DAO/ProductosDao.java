@@ -208,4 +208,113 @@ public class ProductosDao {
         return lista;
     }
 
+    //Metodo para paginacion
+    public int contarProductos(String whereClause, Object... params) {
+        int total = 0;
+
+        String sql = "SELECT COUNT(*) FROM productos " + whereClause;
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            for (int i = 0; i < params.length; i++) {
+                ps.setObject(i + 1, params[i]);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt(1);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al contar productos", e);
+        }
+
+        return total;
+    }
+
+    public List<ProductosModel> listarProductosPaginados(
+            String whereClause,
+            int limit,
+            int offset,
+            Object... params) {
+
+        List<ProductosModel> productos = new ArrayList<>();
+
+        String sql = "SELECT prodId, prodNombre, prodImagen, prodPrecio, prodDescuento "
+                + "FROM productos "
+                + (whereClause != null ? whereClause : "")
+                + " ORDER BY prodId DESC "
+                + " LIMIT ? OFFSET ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            int index = 1;
+
+            if (params != null) {
+                for (Object param : params) {
+                    ps.setObject(index++, param);
+                }
+            }
+
+            ps.setInt(index++, limit);
+            ps.setInt(index, offset);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    ProductosModel p = new ProductosModel();
+                    p.setProdId(rs.getInt("prodId"));
+                    p.setProdNombre(rs.getString("prodNombre"));
+                    p.setProdImagen(rs.getString("prodImagen"));
+                    p.setProdPrecio(rs.getDouble("prodPrecio"));
+                    p.setProdDescuento(rs.getDouble("prodDescuento"));
+                    productos.add(p);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al listar productos paginados", e);
+        }
+
+        return productos;
+    }
+
+    // ofertas paginadas
+    public List<ProductosModel> listarOfertasPaginadas(int limit, int offset) {
+        return listarProductosPaginados(
+                "WHERE prodDescuento > 0",
+                limit,
+                offset
+        );
+    }
+
+//Contar ofertas
+    public int contarOfertas() {
+        return contarProductos("WHERE prodDescuento > 0");
+    }
+
+    //Categoria paginada
+    public List<ProductosModel> listarPorCategoriaPaginado(
+            int categoriaId,
+            int limit,
+            int offset) {
+
+        return listarProductosPaginados(
+                "WHERE prodCategoria = ?",
+                limit,
+                offset,
+                categoriaId
+        );
+    }
+
+    //Contar los productos por categoria 
+    public int contarPorCategoria(int categoriaId) {
+        return contarProductos(
+                "WHERE prodCategoria = ?",
+                categoriaId
+        );
+    }
+    
+    
+
 }
