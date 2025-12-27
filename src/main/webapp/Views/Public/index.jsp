@@ -11,7 +11,7 @@
     <div class="banner">
         <h4 class="compra">Compra Online</h4>
         <h2>Recibe hasta el 50% de descuento</h2>
-        <h1>En todos los productos</h1>
+        <h1>En productos seleccionados</h1>
         <p>¡No te puedes perder esta oferta!</p>
         <button>COMPRA AHORA</button>
     </div>
@@ -217,29 +217,26 @@
 
 
     <!-- PAGINACION DE LOS PRODUCTOS DE OFERTA  -->
-   <div class="pagination">
+    <div class="pagination">
 
-    <% if (paginaActual > 1) { %>
+        <% if (paginaActual > 1) {%>
         <a class="page-btn"
-           href="?page=<%= paginaActual - 1 %>">«</a>
-    <% } %>
+           href="?page=<%= paginaActual - 1%>">«</a>
+        <% } %>
 
-    <% for (int i = 1; i <= totalPaginas; i++) { %>
-        <a class="page-btn <%= (i == paginaActual) ? "active" : "" %>"
-           href="?page=<%= i %>">
-            <%= i %>
+        <% for (int i = 1; i <= totalPaginas; i++) {%>
+        <a class="page-btn <%= (i == paginaActual) ? "active" : ""%>"
+           href="?page=<%= i%>">
+            <%= i%>
         </a>
-    <% } %>
+        <% } %>
 
-    <% if (paginaActual < totalPaginas) { %>
+        <% if (paginaActual < totalPaginas) {%>
         <a class="page-btn"
-           href="?page=<%= paginaActual + 1 %>">»</a>
-    <% } %>
+           href="?page=<%= paginaActual + 1%>">»</a>
+        <% }%>
 
-</div>
-
-
-
+    </div>
 
     <!-- SECCION DE TESTIMONIOS -->
     <section class="testimonios">

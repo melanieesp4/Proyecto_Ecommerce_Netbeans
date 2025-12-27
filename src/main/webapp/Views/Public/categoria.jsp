@@ -11,11 +11,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
-    List<ProductosModel> lista =
-            (List<ProductosModel>) request.getAttribute("productos");
+    List<ProductosModel> lista
+            = (List<ProductosModel>) request.getAttribute("productos");
 
-    String nombreCategoria =
-            (String) request.getAttribute("categoria");
+    String nombreCategoria
+            = (String) request.getAttribute("categoria");
 
     if (nombreCategoria == null) {
         nombreCategoria = "Categoría";
@@ -38,9 +38,11 @@
             <strong>
                 <%= offset + 1%> - <%= Math.min(offset + productosPorPagina, totalProductos)%>
             </strong>
-            de más de <strong><%= totalProductos%></strong> resultados
-
-
+            de más de 
+            <strong>
+                <%= totalProductos%>
+            </strong> 
+            resultados.
         </span>
     </div>
 
@@ -59,41 +61,39 @@
 </div>
 <main class="category-page">
 
-
-
-
     <div class="category-layout">
 
         <aside class="category-filters">
+
             <h4 class="filter-title">Ofertas y descuentos</h4>
 
             <div class="filter-group">
-                <label>
+                <label class="filter-option">
                     <input type="checkbox" onchange="filtrarCategoria()">
-                    Promo
+                    <span class="filter-text">Promo</span>
                 </label>
 
-                <label>
+                <label class="filter-option">
                     <input type="checkbox" onchange="filtrarCategoria()">
-                    Envío gratis
+                    <span class="filter-text">Envío gratis</span>
                 </label>
             </div>
 
             <h4 class="filter-title">Precio</h4>
 
             <div class="price-filter">
-                <span>US $</span>
-                <input type="number" placeholder="Mín." id="precioMin">
+                <input type="number" placeholder="US$ Min" id="precioMin">
                 <span>-</span>
-                <span>US $</span>
-                <input type="number" placeholder="Máx." id="precioMax">
-
+                <input type="number" placeholder="US$ Max" id="precioMax">
                 <button onclick="filtrarCategoria()">OK</button>
             </div>
 
+
         </aside>
+
         <section class="category-results">
-            <h1 class="category-title">Categoría: <small> <%= nombreCategoria%> </small></h1>  
+            <h2 class="category-title">Categoría</h2>  
+            <p class="category-text">Estos son los resultados de <strong>"<%= nombreCategoria%>"</strong></p>
 
             <section class="categories-grid">
 
@@ -141,30 +141,37 @@
                     }%>
 
             </section>
+
+            <!-- PAGINACIÓN -->
+            <div class="pagination">
+
+                <% if (paginaActual > 1) {%>
+                <a class="page-btn"
+                   href="Categoria?categoriaNombre=<%= nombreCategoria%>&page=<%= paginaActual - 1%>">
+                   « Anterior
+                </a>
+                <% } %>
+
+                <% for (int i = 1; i <= totalPaginas; i++) {%>
+                <a class="page-btn <%= (i == paginaActual) ? "active" : ""%>"
+                   href="Categoria?categoriaNombre=<%= nombreCategoria%>&page=<%= i%>">
+                    <%= i%>
+                </a>
+                <% } %>
+
+                <% if (paginaActual < totalPaginas) {%>
+                <a class="page-btn"
+                   href="Categoria?categoriaNombre=<%= nombreCategoria%>&page=<%= paginaActual + 1%>">
+                    Siguiente »
+                </a>
+                <% }%>
+
+            </div>
+
+
         </section>
     </div>
-    <div class="pagination">
 
-        <% if (paginaActual > 1) {%>
-        <a href="?id=<%= request.getParameter("id")%>&page=<%= paginaActual - 1%>">
-            ← Anterior
-        </a>
-        <% } %>
-
-        <% for (int i = 1; i <= totalPaginas; i++) {%>
-        <a href="?id=<%= request.getParameter("id")%>&page=<%= i%>"
-           class="<%= (i == paginaActual) ? "active" : ""%>">
-            <%= i%>
-        </a>
-        <% } %>
-
-        <% if (paginaActual < totalPaginas) {%>
-        <a href="?id=<%= request.getParameter("id")%>&page=<%= paginaActual + 1%>">
-            Siguiente →
-        </a>
-        <% }%>
-
-    </div>
 
 
     <script>
