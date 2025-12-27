@@ -314,7 +314,4 @@ public class ProductosDao {
                 categoriaId
         );
     }
-    
-    
-
 }

@@ -40,7 +40,7 @@ public class CategoriaController extends HttpServlet {
 
 
             int paginaActual = 1;
-            int productosPorPagina = 12;
+            int productosPorPagina = 9;
 
             if (request.getParameter("page") != null) {
                 paginaActual = Integer.parseInt(request.getParameter("page"));
