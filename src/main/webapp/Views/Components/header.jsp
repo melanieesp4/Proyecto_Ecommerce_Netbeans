@@ -7,7 +7,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/style.css">
         <script src="https://kit.fontawesome.com/0e53af926d.js" crossorigin="anonymous"></script>
         <title>Home</title>
 
@@ -142,7 +142,8 @@
             String url = "";
             if (session.getAttribute("userName") == null) {
                 txt = "Inicia sesión/registrate:";
-                url = "login.jsp";
+                url = request.getContextPath() + "/Views/Public/login.jsp";
+
             } else {
                 String nom = session.getAttribute("userName").toString();
                 txt = "Bienvenido(a), " + nom;

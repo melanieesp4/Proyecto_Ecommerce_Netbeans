@@ -2,98 +2,87 @@
 package ecommerce_proyect.Model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  *
- * @author User
+ * @author MelanieAes
  */
 public class UsuarioModel {
-    private int userId;
-    private String userDni;
-    private String userNombre;
-    private String userApellido;
-    private String userDireccion;
-    private String userMail;
-    private String userPassword;
-    private LocalDateTime userFechaCreacion;
-    
+
+    private UUID id;               
+    private String user_name;
+    private String user_lastname;
+    private String user_address;
+    private String user_phone;
+    private String user_role; 
+    private LocalDateTime createdAt;
+
     public UsuarioModel(){}
 
-    public UsuarioModel(int userId, String userDni, String userNombre, String userApellido, String userDireccion, String userMail, String userPassword, LocalDateTime userFechaCreacion) {
-        this.userId = userId;
-        this.userDni = userDni;
-        this.userNombre = userNombre;
-        this.userApellido = userApellido;
-        this.userDireccion = userDireccion;
-        this.userMail = userMail;
-        this.userPassword = userPassword;
-        this.userFechaCreacion = userFechaCreacion;
+    public UsuarioModel(UUID id, String user_name, String user_lastname, String user_address, String user_phone, String user_role, LocalDateTime createdAt) {
+        this.id = id;
+        this.user_name = user_name;
+        this.user_lastname = user_lastname;
+        this.user_address = user_address;
+        this.user_phone = user_phone;
+        this.user_role = user_role;
+        this.createdAt = createdAt;
     }
 
-    public int getUserId() {
-        return userId;
+    public UUID getId() {
+        return id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public String getUserDni() {
-        return userDni;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setUserDni(String userDni) {
-        this.userDni = userDni;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
-    public String getUserNombre() {
-        return userNombre;
+    public String getUser_lastname() {
+        return user_lastname;
     }
 
-    public void setUserNombre(String userNombre) {
-        this.userNombre = userNombre;
+    public void setUser_lastname(String user_lastname) {
+        this.user_lastname = user_lastname;
     }
 
-    public String getUserApellido() {
-        return userApellido;
+    public String getUser_address() {
+        return user_address;
     }
 
-    public void setUserApellido(String userApellido) {
-        this.userApellido = userApellido;
+    public void setUser_address(String user_address) {
+        this.user_address = user_address;
     }
 
-    public String getUserDireccion() {
-        return userDireccion;
+    public String getUser_phone() {
+        return user_phone;
     }
 
-    public void setUserDireccion(String userDireccion) {
-        this.userDireccion = userDireccion;
+    public void setUser_phone(String user_phone) {
+        this.user_phone = user_phone;
     }
 
-    public String getUserMail() {
-        return userMail;
+    public String getUser_role() {
+        return user_role;
     }
 
-    public void setUserMail(String userMail) {
-        this.userMail = userMail;
+    public void setUser_role(String user_role) {
+        this.user_role = user_role;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
-
-    public LocalDateTime getUserFechaCreacion() {
-        return userFechaCreacion;
-    }
-
-    public void setUserFechaCreacion(LocalDateTime userFechaCreacion) {
-        this.userFechaCreacion = userFechaCreacion;
-    }
-    
-    
-    
 }

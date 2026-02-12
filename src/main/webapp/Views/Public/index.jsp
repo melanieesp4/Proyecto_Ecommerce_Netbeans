@@ -19,32 +19,33 @@
 
     <!-- SECCION DE CATEGORIAS POPULARES -->
     <section class="categorias-destacadas">
-        <h2>Categorías populares</h2>
+    <h2>Categorías populares</h2>
 
-        <div class="categorias-grid">
+    <div class="categorias-grid">
 
-            <div class="categoria" onclick="verCategoria('Electrónica')">
-                <img src="img/categoria-tecnologia.jpg" alt="Tecnología">
-                <h4>Tecnología</h4>
-            </div>
-
-            <div class="categoria" onclick="verCategoria('Hogar')">
-                <img src="img/categoria-hogar.jpg" alt="Hogar">
-                <h4>Hogar</h4>
-            </div>
-
-            <div class="categoria" onclick="verCategoria('Ropa')">
-                <img src="img/categoria-moda.jpg" alt="Moda">
-                <h4>Moda</h4>
-            </div>
-
-            <div class="categoria" onclick="verCategoria('Juguetes')">
-                <img src="img/categoria-juguetes.png" alt="Juguetes">
-                <h4>Juguetes</h4>
-            </div>
-
+        <div class="categoria" onclick="verCategoria('Electrónica')">
+            <img src="<%= request.getContextPath() %>/img/categoria-tecnologia.jpg" alt="Tecnología">
+            <h4>Tecnología</h4>
         </div>
-    </section>
+
+        <div class="categoria" onclick="verCategoria('Hogar')">
+            <img src="<%= request.getContextPath() %>/img/categoria-hogar.jpg" alt="Hogar">
+            <h4>Hogar</h4>
+        </div>
+
+        <div class="categoria" onclick="verCategoria('Ropa')">
+            <img src="<%= request.getContextPath() %>/img/categoria-moda.jpg" alt="Moda">
+            <h4>Moda</h4>
+        </div>
+
+        <div class="categoria" onclick="verCategoria('Juguetes')">
+            <img src="<%= request.getContextPath() %>/img/categoria-juguetes.png" alt="Juguetes">
+            <h4>Juguetes</h4>
+        </div>
+
+    </div>
+</section>
+
 
     <!-- SECCION DE PRODUCTOS DESTACADOS -->
     <section class="productos-destacados">
